@@ -8,7 +8,7 @@ These are the main ideas about work with serial port:
 
 To read a data from ESP, use serial port connection. Here is a **guide how to read data from serial port**
 ____
-**Step 1:** Check if ESP connected to your computer
+**Step 1:** Check if ESP is connected to your computer
 
 ```ls /dev/ttyUSB*```
 ___
@@ -16,7 +16,7 @@ ___
 
 ```sudo picocom /dev/ttyUSB0 -b 115200```
 
-If you do not have the picocom package there are commands to install it:
+If you do not have the picocom package these are commands to install it:
 
 - Ubuntu:
   ```sudo apt-get install picocom```
@@ -30,12 +30,15 @@ ____
 To save the output from the port, run the [Open_serial.py](Open_serial.py) -
 code use [pyserial package](https://pypi.org/project/pyserial/) to open a connection.
 
-Use the code as start point for any project all will work:)
+Use the code as start point for any project, everything will work:)
 ___
 
-### 2 - The messages in a serial port are sent in the format you choose (or default for a board you are working with).
+### Messages 
+The messages in a serial port are sent in the format you choose (or default for a board you are working with).
 
-### 3 - You can put into a board your code which will run in inf loop
+### Put your code intro a board
+
+You can put your code into a board, it will run in inf loop.
 
 How to do this?
 
@@ -46,13 +49,13 @@ ____
 
 ```rshell -p /dev/ttyUSB0 -b 115200```
 
-- If the process stopped into the step Trying to connect to REPL ..., try to push the button reset on a board, or try
+- If the process is stopped during the step "Trying to connect to REPL ...", try to push the reset button on a board, or try
   the command with sudo. If it doesn't help try to reinstall the rshell.
 
 ___
 **Step 2:** Upload a script(s) with rshell
 
-- If you need upload only file main.py
+- If you need to upload only the main.py file
 
 ```cp path/to/main.py /pyboard/main.py```
 
@@ -60,7 +63,7 @@ ___
 
 ```cp -r path/to/*.py /pyboard/```
 
-- If you need to upload many files with folder
+- If you need to upload many files with a folder
 
 ````
 mkdir /pyboard/<folder_name>
@@ -71,7 +74,9 @@ ___
 
 Press ``ctrl+C``
 
-### 4 - Start your code work in the board
+### Start your code work in the board
+
+- The guide **for python scripts**
 
 Run your code
 ___
