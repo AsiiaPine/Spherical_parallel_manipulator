@@ -1,5 +1,3 @@
-
-
 headers = [
     "imu_1_gyro x",
     "imu_1_gyro y",
@@ -14,6 +12,7 @@ headers = [
     "imu_2_accel y",
     "imu_2_accel z",
 ]
+
 # headers = [
 #     "imu_1_accel x",
 #     "imu_1_accel y",

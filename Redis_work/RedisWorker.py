@@ -3,7 +3,26 @@ import redis
 import numpy as np
 from redis import asyncio as aioredis
 from models import IMUData, IMUMessage
-from message_broker import RedisMessageBroker
+from MessageBroker import RedisMessageBroker
+
+
+class AsyncRedisWorker:
+    def __init__(
+            self,
+            redis_db: aioredis.Redis = aioredis.from_url("redis://localhost:6379/0"),
+            ) -> None:
+        self.r = redis_db
+        self.broker = RedisMessageBroker(redis_db)
+        # By default, read from the last key. Skip old data.
+        self.last_id = "$"
+
+    async def subscribe(self, channel: str = "imu_data", block: int = 5, count=10):
+        async for last_id, messages in self.broker.asubscribe_grouped(channel, self.last_id, block, count=count):
+            self.last_id = last_id
+            if len(messages) > 0:
+                last_message = messages[-1]
+                data = IMUMessage.from_json(json.loads(last_message))
+                yield data
 
 
 # class RedisWorker:
@@ -45,22 +64,3 @@ from message_broker import RedisMessageBroker
 #         # data is mixed up, don't worry
 
 #         return gyros, accels
-
-
-class AsyncRedisWorker:
-    def __init__(
-            self,
-            redis_db: aioredis.Redis = aioredis.from_url("redis://localhost:6379/0"),
-            ) -> None:
-        self.r = redis_db
-        self.broker = RedisMessageBroker(redis_db)
-        # By default, read from the last key. Skip old data.
-        self.last_id = "$"
-
-    async def subscribe(self, channel: str = "imu_data", block: int = 5, count=10):
-        async for last_id, messages in self.broker.asubscribe_grouped(channel, self.last_id, block, count=count):
-            self.last_id = last_id
-            if len(messages) > 0:
-                last_message = messages[-1]
-                data = IMUMessage.from_json(json.loads(last_message))
-                yield data
