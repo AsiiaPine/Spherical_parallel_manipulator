@@ -8,8 +8,9 @@ from redis_worker import AsyncRedisWorker
 from Motor.libs import CanBus, Gyems
 from config import headers, acc_coeffitients_str, acc_offsets_str
 
-
+# zcalibration process for a specific axis
 class Calibration_by_axis:
+    # parameters: axis, number of measurements to take, initial offsets of the axis, whether to display progress during calibration
     def __init__(self, axis, n_measurements=1000, offsets_of_axis=[100000, 100000, 10000], to_show_progress=False) -> None:
         self.axis = axis
         self.coeff = 1
@@ -56,7 +57,7 @@ class Calibration_by_axis:
             # calibration complete
             return 1
 
-
+# The overall calibration process
 class Calibration:
     axes = ["x", "y", "z"]
 
@@ -71,6 +72,7 @@ class Calibration:
         self.calibration_is_finished = False
         self.first_stage_of_calib_is_finished = False
 
+    # The fun-n performs calibration for a specific axis
     def calibrate(self, xyz):
         result = self.curr_calib.update(xyz)
         if result:  # calibration around axis is comlete
@@ -151,7 +153,7 @@ class Calibration_acc(Calibration):
 # class Calibration_gyro(Calibration):
 #     def __init__(self, bus: CanBus, motor: Gyems, n_measurements=1000, omegas = [10]) -> None:
 #         """
-#         The class is used to clibrate IMU, you have to attach the imu to motor and calibrate it with different axes and speeds. The instance connacts to the motor via CAN and controls its speed.
+#         The class is used to calibrate IMU, you have to attach the imu to motor and calibrate it with different axes and speeds. The instance connacts to the motor via CAN and controls its speed.
 #         """
 #         super().__init__(n_measurements)
 
@@ -166,7 +168,7 @@ class Calibration_acc(Calibration):
 #         self.omegas = omegas
 #         self.bus = bus
 #         self.motor = motor
-#         print(f"Press ENTER to start calibrate guroscope around the {self.axes[self.axis]} axis")
+#         print(f"Press ENTER to start calibrate gyroscope around the {self.axes[self.axis]} axis")
 #         input()
 
 #     def disconnect_motor(self):

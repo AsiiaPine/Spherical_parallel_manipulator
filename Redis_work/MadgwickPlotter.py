@@ -15,7 +15,6 @@ class MadgwickPlotter:
     def __init__(
         self,
             madg_filter: MadgwickAHRS,
-            n_calib_frames: int = 100,
             t_start: float = time.time(),
             to_draw_3d: bool = False,
             to_draw_imu_data: bool = False,
@@ -100,70 +99,3 @@ class MadgwickPlotter:
         else:
             self.plot_2d_data()
            
-            
-    # def set_Madgwick_data(self, acc, gyro):
-
-    #     assert type(self.prev_time) is float
-    #     curr_time = time.time() - self.start_time
-    #     dt = curr_time - self.prev_time
-    #     self.time_window.append(curr_time)
-    #     assert type(self.acc_array) is np.ndarray
-    #     assert type(self.gyr_array) is np.ndarray
-
-    #     assert type(self.madgwick) is MadgwickAHRS
-
-    #     if np.linalg.norm(acc):
-    #         acc = acc/np.linalg.norm(acc)
-
-    #     self.acc_array = np.vstack((self.acc_array, acc))
-    #     self.gyr_array = np.vstack((self.gyr_array, gyro))
-
-    #     if self.i > self.window_size:
-    #         self.time_window = self.time_window[1:]
-    #         self.acc_array = self.acc_array[1:]
-    #         self.gyr_array = self.gyr_array[1:]
-
-    #     if self.to_draw_3d:
-    #         self.madgwick.sample_period = dt
-    #         self.madgwick.update_IMU(
-    #             gyros_data=self.gyr_array[-1], accel_data=self.acc_array[-1])
-
-    #         self.ax.clear()
-    #         _, self.theta, _, _, _,  _, _ = draw_rotation(
-    #             quaternion=self.madgwick.quaternion, t=curr_time, fig=self.fig, ax=self.ax, theta=self.theta)
-    #         # plt.pause(0.5)
-    #         self.fig.canvas.draw()
-    #         self.fig.canvas.flush_events()
-    #         plt.pause(0.0001)
-
-    #     if self.to_draw_imu_data:
-    #         for ax in self.imu_axs:
-    #             ax.clear()
-    #         plot_imu_data(self.acc_array, self.gyr_array, imu=self.imu_n,
-    #                       fig=self.imu_fig, axs=self.imu_axs, time=self.time_window)
-    #         self.imu_fig.canvas.draw()
-    #         self.imu_fig.canvas.flush_events()
-
-    #         # print(self.to_draw)
-    #     self.i += 1
-    #     self.prev_time = curr_time
-
-    # def update_state(self, acc, gyro):
-        # print("i", self.i)
-
-        # if self.i < self.n_calib_frames:
-        #     self.collect_data(acc, gyro)
-
-        # if self.i == self.n_calib_frames:
-        #     self.set_Madgwick_parameters(acc, gyro)
-        #     print("Parameters updated:", self.omega_beta, self.epsilon_beta)
-
-        # if self.i > self.n_calib_frames:
-        #     self.set_Madgwick_data(acc, gyro)
-        # self.i += 1
-
-    # def update(self, acc, gyro):
-    #     self.n_calib_frames = 0
-    #     acc_norm = np.array(
-    #         [(acc[i]-self.offsets_acc[i])/self.coeffs_acc[i] for i in range(3)])
-    #     self.set_Madgwick_data(acc=acc_norm, gyro=gyro)

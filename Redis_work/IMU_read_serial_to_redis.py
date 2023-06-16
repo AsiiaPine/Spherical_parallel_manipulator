@@ -8,18 +8,19 @@ from redis import asyncio as aioredis
 from message_broker import RedisMessageBroker
 from config import headers
 
-
+# sets up connection to a Redis server 
 redis = aioredis.from_url("redis://localhost:6379/0")
 broker = RedisMessageBroker(redis)
 
 serialPort: serial.Serial
 
+# the fun-n opens the serial port and prints its name
 def open_serial_port():
     global serialPort
     serialPort = serial.Serial(port='/dev/ttyUSB0', baudrate=115200)  # open serial port
     print(serialPort.name)  # check which port was really used
 
-
+# the asynchronous fun-n reads data from IMU using the serial port and publishes the data to the Redis stream named "imu_data"
 async def read_serial_and_post_to_redis():
     """
     Read data from IMU using serial port and post to redis stream.
