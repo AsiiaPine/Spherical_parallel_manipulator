@@ -95,3 +95,9 @@ Run script: ```ctrl+d```
 Stop script: ```ctrl+c```
 
 Exit from shell: ```ctrl+a + ctrl+q```
+
+
+_____
+# IMU calibration
+
+To save the values of IMU with the time corresponding to each value that is read from IMU, run IMU_serial_reading_for_calibration.py
