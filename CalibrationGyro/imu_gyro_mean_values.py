@@ -1,24 +1,40 @@
-# read values from imu's gyroscope (Mean value: 712.8391304347826)
+# read values from imu's gyroscope 
 
+# Y: Mean value: -32512.0
+# X: Mean value: -3870.3574660633485
+# Z: Mean value: 2390.255605381166
 import csv
 import datetime
 
-start_time = datetime.datetime.strptime('17:40:50:000', '%H:%M:%S:%f')
-end_time = datetime.datetime.strptime('17:40:52:000', '%H:%M:%S:%f')
+# for y
+# start_time = datetime.datetime.strptime('17:40:51:000', '%H:%M:%S:%f')
+# end_time = datetime.datetime.strptime('17:40:53:000', '%H:%M:%S:%f')
+
+# start_time = datetime.datetime.strptime('17:40:52:026', '%H:%M:%S:%f')
+# end_time = datetime.datetime.strptime('17:40:53:830', '%H:%M:%S:%f')
+
+
+# for x
+# start_time = datetime.datetime.strptime('17:38:00:211', '%H:%M:%S:%f')
+# end_time = datetime.datetime.strptime('17:38:02:132', '%H:%M:%S:%f')
+
+# for z
+start_time = datetime.datetime.strptime('17:35:30:286', '%H:%M:%S:%f')
+end_time = datetime.datetime.strptime('17:35:32:197', '%H:%M:%S:%f')
 
 data = []
 
-# Read the CSV file
+# Read the CSV file9
 
-with open('imu_results_y.csv', 'r') as file:
+with open('imu_results_z.csv', 'r') as file:
     reader = csv.reader(file, delimiter=';')
     next(reader)  # Skip the header row
     for row in reader:
         timestamp = datetime.datetime.strptime(row[0], '%H:%M:%S:%f')
         if start_time <= timestamp <= end_time:
-            print(timestamp, ' ', int(row[2]))
+            print(timestamp, ' ', int(row[9]))
             # Y-axis. To change an axis, change index row[]
-            data.append(int(row[2]))  # Assuming column index starts from 0
+            data.append(int(row[9]))  # Assuming column index starts from 0
 
 # Calculate the mean if there is at least one data point
 if len(data) > 0:
