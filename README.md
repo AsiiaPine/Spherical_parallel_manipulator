@@ -101,3 +101,8 @@ _____
 # IMU calibration
 
 To save the values of IMU with the time corresponding to each value that is read from IMU, run IMU_serial_reading_for_calibration.py
+
+_____
+# DYNAMIXEL MOTORS
+Velocity control mode:
+https://emanual.robotis.com/docs/en/dxl/mx/mx-106-2/
